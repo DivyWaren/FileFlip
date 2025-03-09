@@ -77,7 +77,7 @@ def register_context_menu():
         for fmt, label in image_formats.items():
             command_store_path = f"{command_store_base}\\FileFlip.to{fmt.upper()}"
             command_key_path = command_store_path + "\\command"
-            command = f'"{exe_path.replace("python.exe", "pythonw.exe")}" "to_{fmt}" "%1"'  # Pass script as argument
+            command = f'"{exe_path}" "to_{fmt}" "%1"' # Pass script as argument
 
             with winreg.CreateKey(winreg.HKEY_LOCAL_MACHINE, command_store_path) as subkey:
                 winreg.SetValueEx(subkey, "MUIVerb", 0, winreg.REG_SZ, label)
@@ -128,7 +128,7 @@ if __name__ == "__main__":
     if len(sys.argv) == 1:  # Register the menu
         unregister_context_menu()
         register_context_menu()
-        input("Press Enter to exit...")
+        
 
     elif len(sys.argv) == 3:  # Conversion requested
         action, file_path = sys.argv[1], sys.argv[2]
